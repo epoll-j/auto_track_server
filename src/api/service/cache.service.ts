@@ -13,7 +13,7 @@ export class CacheService {
             try {
                 return JSON.parse(data)
             } catch (e) {
-                return data as T
+                return data as unknown as T
             }
         }
 
