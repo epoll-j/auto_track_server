@@ -1,7 +1,4 @@
 export default {
-  koa: {
-    proxy: true
-  },
   typeorm: {
     dataSource: {
       default: {
