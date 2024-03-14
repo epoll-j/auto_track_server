@@ -12,12 +12,18 @@
     "@midwayjs/hooks": "^3.1.0",
     "@midwayjs/hooks-kit": "^3.1.0",
     "@midwayjs/koa": "^3.15.2",
+    "@midwayjs/logger": "^3.3.0",
+    "@midwayjs/redis": "^3.15.2",
     "@midwayjs/rpc": "^3.1.0",
     "@midwayjs/serve": "^3.1.0",
+    "@midwayjs/typeorm": "^3.15.2",
     "ahooks": "^3.1.2",
     "isomorphic-unfetch": "^3.1.0",
+    "moment": "^2.30.1",
+    "mysql2": "^3.9.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@types/react": "^17.0.13",

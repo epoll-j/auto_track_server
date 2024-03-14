@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { AppInfo } from '../db_entity/AppInfo';
 import { TrackStatistics } from '../db_entity/TrackStatistics';
 import { UserTrack } from '../db_entity/UserTrack';
+import moment from 'moment';
 
 @Job({
     cronTime: FORMAT.CRONTAB.EVERY_DAY,
@@ -47,6 +48,7 @@ export class DataStatisticsJob implements IJob {
             statistics.appDau = Number(dau || 0);
             statistics.appNu = Number(nu || 0);
             statistics.otherParams = JSON.stringify(trackCount);
+            statistics.dataTime = moment().subtract(1, 'days').toDate();
             await this.statisticsModel.insert(statistics);
             await this.redis.del(dauKey);
             await this.redis.del(nuKey);
