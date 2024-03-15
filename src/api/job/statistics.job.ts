@@ -39,7 +39,7 @@ export class DataStatisticsJob implements IJob {
             const trackCount = await this.userTrackModel.createQueryBuilder('user_track')
                 .select('user_track.trackType', 'track_type')
                 .addSelect('COUNT(user_track.trackType)', 'num')
-                .where('DATE(user_track.createTime) = CURDATE()')
+                .where('DATE(user_track.createTime) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)')
                 .groupBy('user_track.trackType')
                 .getRawMany();
 
