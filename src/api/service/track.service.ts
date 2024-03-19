@@ -1,3 +1,4 @@
+import { TrackBody } from './../entity/TrackBody';
 import { Provide, Inject } from '@midwayjs/core';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import { Repository } from 'typeorm';
@@ -20,13 +21,15 @@ export class TrackService {
     @InjectEntityModel(AppUser)
     appUserModel: Repository<AppUser>;
 
-    async add(appKey: string, userId: string | null, trackId: string, dataList: any) {
+    async add(track: TrackBody) {
+        const { app_key, user_id, track_id, data_list, device_info, app_version } = track;
+        const { ip } = this.ctx;
         const rows: UserTrack[] = [];
-        for (const data of dataList) {
+        for (const data of data_list) {
             const userTrack = new UserTrack();
-            userTrack.appKey = appKey;
-            userTrack.userId = userId;
-            userTrack.trackId = trackId;
+            userTrack.appKey = app_key;
+            userTrack.userId = user_id;
+            userTrack.trackId = track_id;
             userTrack.trackTime = new Date(data.time)
             userTrack.trackType = data.type
             userTrack.trackKey = data.key
@@ -35,27 +38,36 @@ export class TrackService {
         }
 
         await this.userTrackModel.insert(rows);
-        if (userId && userId !== '') {
-            const userKey = `${appKey}:user:${userId}`;
+        if (user_id && user_id !== '') {
+            const userKey = `${app_key}:user:${user_id}`;
             let user = await this.cacheService.get<AppUser>(userKey, async () => {
-                return await this.appUserModel.findOne({
+                const dbUSer = await this.appUserModel.findOne({
                     where: {
-                        appKey,
-                        userId
+                        appKey: app_key,
+                        userId: user_id
                     }
                 })
+
+                if (dbUSer) {
+                    dbUSer.appVersion = app_version
+                    dbUSer.deviceInfo = JSON.stringify(device_info)
+                    dbUSer.loginIp = ip
+                    return await this.appUserModel.save(dbUSer)
+                }
+
+                return dbUSer
             });
 
             if (!user) {
                 const newUser = new AppUser()
-                newUser.appKey = appKey
-                newUser.userId = userId
-                newUser.loginIp = this.ctx.ip
+                newUser.appKey = app_key
+                newUser.userId = user_id
+                newUser.loginIp = ip
                 user = await this.appUserModel.save(newUser)
-                const nuKey = `${appKey}:nu`;
+                const nuKey = `${app_key}:nu`;
                 await this.redis.incr(nuKey);
             }
-            const dauKey = `${appKey}:dau`;
+            const dauKey = `${app_key}:dau`;
             await this.redis.setbit(dauKey, user.id, 1);
         }
         

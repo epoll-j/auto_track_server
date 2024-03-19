@@ -42,7 +42,7 @@ export class TrackController {
         return { success: false }
     }
 
-    await this.trackService.add(track.app_key, track.user_id, track.track_id, track.data_list);
+    await this.trackService.add(track);
     return { success: true }
   }
 }

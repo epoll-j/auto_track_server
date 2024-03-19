@@ -14,6 +14,12 @@ export class AppUser {
   @Column("varchar", { name: "login_ip", length: 50 })
   loginIp: string;
 
+  @Column("varchar", { name: "app_version", length: 50 })
+  appVersion: string;
+
+  @Column("longtext", { name: "device_info" })
+  deviceInfo: string;
+
   @Column("datetime", {
     name: "create_time",
     nullable: true,
