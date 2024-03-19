@@ -20,6 +20,9 @@ export class UserTrack {
   @Column("varchar", { name: "track_type", length: 200 })
   trackType: string;
 
+  @Column("varchar", { name: "track_key", length: 200 })
+  trackKey: string;
+
   @Column("datetime", { name: "track_time" })
   trackTime: Date;
 

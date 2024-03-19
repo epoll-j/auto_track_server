@@ -29,6 +29,7 @@ export class TrackService {
             userTrack.trackId = trackId;
             userTrack.trackTime = new Date(data.time)
             userTrack.trackType = data.type
+            userTrack.trackKey = data.key
             userTrack.trackParams = JSON.stringify(data.params)
             rows.push(userTrack);
         }
