@@ -63,6 +63,8 @@ export class TrackService {
                 newUser.appKey = app_key
                 newUser.userId = user_id
                 newUser.loginIp = ip
+                newUser.appVersion = app_version
+                newUser.deviceInfo = JSON.stringify(device_info)
                 user = await this.appUserModel.save(newUser)
                 const nuKey = `${app_key}:nu`;
                 await this.redis.incr(nuKey);
