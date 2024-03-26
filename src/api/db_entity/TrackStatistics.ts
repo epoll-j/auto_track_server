@@ -8,6 +8,9 @@ export class TrackStatistics {
   @Column("varchar", { name: "app_key", length: 255 })
   appKey: string;
 
+  @Column("int", { name: "app_tu" })
+  appTu: number;
+  
   @Column("int", { name: "app_dau" })
   appDau: number;
 
