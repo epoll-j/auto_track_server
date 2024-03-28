@@ -8,6 +8,7 @@
     "build": "hooks build"
   },
   "dependencies": {
+    "@ant-design/charts": "^2.0.3",
     "@ant-design/icons": "^5.3.2",
     "@ant-design/pro-components": "^2.6.49",
     "@midwayjs/cron": "^3.15.2",

@@ -3,6 +3,13 @@ import { defineConfig } from '@midwayjs/hooks-kit';
 import path from 'path';
 
 export default defineConfig({
+  source: './src/api',
+  routes: [
+    {
+      baseDir: '/controller/functions',
+      basePath: '/api',
+    }
+  ],
   vite: {
     plugins: [react()],
     resolve: {

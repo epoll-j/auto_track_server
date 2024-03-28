@@ -23,6 +23,9 @@ export class UserTrack {
   @Column("varchar", { name: "track_key", length: 200 })
   trackKey: string;
 
+  @Column("varchar", { name: "track_ip", length: 200 })
+  trackIp: string;
+
   @Column("datetime", { name: "track_time" })
   trackTime: Date;
 

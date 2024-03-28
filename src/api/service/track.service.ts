@@ -34,6 +34,7 @@ export class TrackService {
             userTrack.trackType = data.type
             userTrack.trackKey = data.key
             userTrack.trackParams = JSON.stringify(data.params)
+            userTrack.trackIp = ip;
             rows.push(userTrack);
         }
 
