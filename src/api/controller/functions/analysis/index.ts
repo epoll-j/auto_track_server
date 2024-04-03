@@ -9,13 +9,24 @@ import {
 import { Context } from '@midwayjs/koa';
 
 
-export const getDashboard = Api(
+export const getUserOverview = Api(
     Get(),
     Query<{ appKey: string }>(),
     async () => {
         const ctx = useContext<Context>();
         const { appKey } = ctx.query;
         const service = await useInject(DataAnalysisService)
-        return await service.getDashboard(appKey as string);
+        return await service.getUserOverview(appKey as string);
+    }
+)
+
+export const getUserAppVersionOverview = Api(
+    Get(),
+    Query<{ appKey: string }>(),
+    async () => {
+        const ctx = useContext<Context>();
+        const { appKey } = ctx.query;
+        const service = await useInject(DataAnalysisService)
+        return await service.getUserAppVersionOverview(appKey as string);
     }
 )

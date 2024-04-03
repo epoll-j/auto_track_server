@@ -16,10 +16,16 @@ export class DataAnalysisService {
     @Inject()
     redis: RedisService
 
-    async getDashboard(appKey: string) {
-        const statistics = await this.statisticsRepo.findBy({
-            dataTime: MoreThanOrEqual(moment().subtract(30, 'days').toDate()),
-            appKey
+    async getUserOverview(appKey: string) {
+        const statistics = await this.statisticsRepo.find({
+            where: {
+                dataTime: MoreThanOrEqual(moment().subtract(30, 'days').toDate()),
+                appKey,
+            },
+            order: {
+                dataTime: 'DESC'
+            },
+            select: ['dataTime', 'appTu', 'appNu', 'appDau']
         })
         const dauKey = `${appKey}:dau`;
         const nuKey = `${appKey}:nu`;
@@ -27,9 +33,6 @@ export class DataAnalysisService {
         const dau = await this.redis.bitcount(dauKey) || 0;
         const tu = await this.appUserRepo.countBy({
             appKey
-        })
-        statistics.map(item => {
-            item.dataTime = moment(item.dataTime).format('MM-DD') as any;
         })
         return {
             nu,
@@ -39,5 +42,15 @@ export class DataAnalysisService {
         }
     }
 
-    
+    async getUserAppVersionOverview(appKey: string) {
+        const versionData = await this.appUserRepo.createQueryBuilder('appUser')
+            .select('appUser.appVersion', 'appVersion')
+            .addSelect('COUNT(appUser.id)', 'count')
+            .where('appUser.appKey = :appKey', { appKey })
+            .groupBy('appUser.appVersion')
+            .orderBy('count', 'DESC')
+            .getRawMany()
+
+        return versionData
+    }
 }
