@@ -13,8 +13,8 @@ import { BasicStatus, PermissionType } from '@/types/enum';
 import { AppRouteObject } from '@/types/router';
 
 // 使用 import.meta.glob 获取所有路由组件
-const entryPath = '/src/pages';
-const pages = import.meta.glob('/src/pages/**/*.tsx');
+const entryPath = '/src/web/pages';
+const pages = import.meta.glob('/src/web/pages/**/*.tsx');
 export const pagesSelect = Object.entries(pages).map(([path]) => {
   const pagePath = path.replace(entryPath, '');
   return {
