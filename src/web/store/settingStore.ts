@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import { getItem, removeItem, setItem } from '@/web/utils/storage';
 
-import { StorageEnum, ThemeColorPresets, ThemeLayout, ThemeMode } from '@/enum';
+import { StorageEnum, ThemeColorPresets, ThemeLayout, ThemeMode } from '@/types/enum';
 
 type SettingsType = {
   themeColorPresets: ThemeColorPresets;

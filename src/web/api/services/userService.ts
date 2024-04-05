@@ -1,6 +1,6 @@
 import apiClient from '../apiClient';
 
-import { UserInfo, UserToken } from '@/entity';
+import { UserInfo, UserToken } from '@/types/entity';
 
 export interface SignInReq {
   username: string;

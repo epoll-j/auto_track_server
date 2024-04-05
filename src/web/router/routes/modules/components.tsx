@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { Iconify } from '@/web/components/icon';
 import { CircleLoading } from '@/web/components/loading';
 
-import { AppRouteObject } from '@/router';
+import { AppRouteObject } from '@/types/router';
 
 const AnimatePage = lazy(() => import('@/web/pages/components/animate'));
 const ScrollPage = lazy(() => import('@/web/pages/components/scroll'));

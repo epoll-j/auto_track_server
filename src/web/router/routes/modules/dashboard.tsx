@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { SvgIcon } from '@/web/components/icon';
 import { CircleLoading } from '@/web/components/loading';
 
-import { AppRouteObject } from '@/router';
+import { AppRouteObject } from '@/types/router';
 
 const HomePage = lazy(() => import(`@/web/pages/dashboard/workbench`));
 const Analysis = lazy(() => import('@/web/pages/dashboard/analysis'));

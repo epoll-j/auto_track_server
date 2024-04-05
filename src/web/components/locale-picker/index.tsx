@@ -4,7 +4,7 @@ import useLocale, { LANGUAGE_MAP } from '@/web/locales/useLocale';
 
 import { IconButton, SvgIcon } from '../icon';
 
-import { LocalEnum } from '@/enum';
+import { LocalEnum } from '@/types/enum';
 import type { MenuProps } from 'antd';
 
 type Locale = keyof typeof LocalEnum;

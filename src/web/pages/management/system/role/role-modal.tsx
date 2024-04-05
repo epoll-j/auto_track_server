@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { PERMISSION_LIST } from '@/web/_mock/assets';
 import { flattenTrees } from '@/web/utils/tree';
 
-import { Permission, Role } from '@/entity';
-import { BasicStatus } from '@/enum';
+import { Permission, Role } from '@/types/entity';
+import { BasicStatus } from '@/types/enum';
 
 export type RoleModalProps = {
   formValue: Role;

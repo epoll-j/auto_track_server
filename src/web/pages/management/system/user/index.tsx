@@ -7,8 +7,8 @@ import { usePathname, useRouter } from '@/web/router/hooks';
 import ProTag from '@/web/theme/antd/components/tag';
 import { useThemeToken } from '@/web/theme/hooks';
 
-import type { Role, UserInfo } from '@/entity';
-import { BasicStatus } from '@/enum';
+import type { Role, UserInfo } from '@/types/entity';
+import { BasicStatus } from '@/types/enum';
 
 const USERS: UserInfo[] = USER_LIST;
 

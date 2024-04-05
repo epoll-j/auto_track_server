@@ -23,7 +23,7 @@ import ProTag from '@/web/theme/antd/components/tag';
 
 import OrganizationChart from './organization-chart';
 
-import { Organization } from '@/entity';
+import { Organization } from '@/types/entity';
 
 type SearchFormFieldType = Pick<Organization, 'name' | 'status'>;
 

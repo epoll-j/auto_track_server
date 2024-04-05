@@ -6,7 +6,7 @@ import AuthGuard from '@/web/router/components/auth-guard';
 import { usePermissionRoutes } from '@/web/router/hooks';
 import { ErrorRoutes } from '@/web/router/routes/error-routes';
 
-import { AppRouteObject } from '@/router';
+import { AppRouteObject } from '@/types/router';
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 const LoginRoute: AppRouteObject = {

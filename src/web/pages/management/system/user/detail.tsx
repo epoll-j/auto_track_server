@@ -2,7 +2,7 @@ import { USER_LIST } from '@/web/_mock/assets';
 import Card from '@/web/components/card';
 import { useParams } from '@/web/router/hooks';
 
-import type { UserInfo } from '@/entity';
+import type { UserInfo } from '@/types/entity';
 
 const USERS: UserInfo[] = USER_LIST;
 

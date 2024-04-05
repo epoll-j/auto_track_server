@@ -8,9 +8,9 @@ import { useUserPermission } from '@/web/store/userStore';
 import ProTag from '@/web/theme/antd/components/tag';
 import { flattenTrees } from '@/web/utils/tree';
 
-import { Permission } from '@/entity';
-import { BasicStatus, PermissionType } from '@/enum';
-import { AppRouteObject } from '@/router';
+import { Permission } from '@/types/entity';
+import { BasicStatus, PermissionType } from '@/types/enum';
+import { AppRouteObject } from '@/types/router';
 
 // 使用 import.meta.glob 获取所有路由组件
 const entryPath = '/src/pages';

@@ -9,7 +9,7 @@ import KanbanTask from '@/web/pages/sys/others/kanban/kanban-task';
 import { Column, DragType, Task, TaskPriority } from '@/web/pages/sys/others/kanban/types';
 import { useSettings } from '@/web/store/settingStore';
 
-import { ThemeMode } from '@/enum';
+import { ThemeMode } from '@/types/enum';
 
 type Props = {
   index: number;

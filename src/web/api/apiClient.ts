@@ -4,8 +4,8 @@ import { isEmpty } from 'ramda';
 
 import { t } from '@/web/locales/i18n';
 
-import { Result } from '@/api';
-import { ResultEnum } from '@/enum';
+import { Result } from '@/types/api';
+import { ResultEnum } from '@/types/enum';
 
 // 创建 axios 实例
 const axiosInstance = axios.create({

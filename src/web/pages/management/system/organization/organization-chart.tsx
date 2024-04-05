@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { useSettings } from '@/web/store/settingStore';
 import { useThemeToken } from '@/web/theme/hooks';
 
-import { Organization } from '@/entity';
-import { ThemeMode } from '@/enum';
+import { Organization } from '@/types/entity';
+import { ThemeMode } from '@/types/enum';
 
 type Props = {
   organizations?: Organization[];

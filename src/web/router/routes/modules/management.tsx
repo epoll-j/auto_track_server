@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { SvgIcon } from '@/web/components/icon';
 import { CircleLoading } from '@/web/components/loading';
 
-import { AppRouteObject } from '@/router';
+import { AppRouteObject } from '@/types/router';
 
 const ProfilePage = lazy(() => import('@/web/pages/management/user/profile'));
 const AccountPage = lazy(() => import('@/web/pages/management/user/account'));

@@ -5,7 +5,7 @@ import { Iconify, SvgIcon } from '@/web/components/icon';
 import { CircleLoading } from '@/web/components/loading';
 import ProTag from '@/web/theme/antd/components/tag';
 
-import { AppRouteObject } from '@/router';
+import { AppRouteObject } from '@/types/router';
 
 const ExternalLink = lazy(() => import('@/web/pages/sys/others/iframe/external-link'));
 const Iframe = lazy(() => import('@/web/pages/sys/others/iframe'));

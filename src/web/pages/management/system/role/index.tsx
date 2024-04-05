@@ -8,8 +8,8 @@ import ProTag from '@/web/theme/antd/components/tag';
 
 import { RoleModal, RoleModalProps } from './role-modal';
 
-import { Role } from '@/entity';
-import { BasicStatus } from '@/enum';
+import { Role } from '@/types/entity';
+import { BasicStatus } from '@/types/enum';
 
 const ROLES: Role[] = ROLE_LIST;
 

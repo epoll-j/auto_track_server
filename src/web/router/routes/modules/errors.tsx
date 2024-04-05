@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Iconify } from '@/web/components/icon';
 import { CircleLoading } from '@/web/components/loading';
 
-import { AppRouteObject } from '@/router';
+import { AppRouteObject } from '@/types/router';
 
 const Page403 = lazy(() => import('@/web/pages/sys/error/Page403'));
 const Page404 = lazy(() => import('@/web/pages/sys/error/Page404'));

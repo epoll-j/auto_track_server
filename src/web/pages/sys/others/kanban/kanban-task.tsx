@@ -13,7 +13,7 @@ import { useThemeToken } from '@/web/theme/hooks';
 
 import TaskDetail from './task-detail';
 
-import { ThemeMode } from '@/enum';
+import { ThemeMode } from '@/types/enum';
 
 type Props = {
   index: number;

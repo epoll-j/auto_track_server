@@ -8,8 +8,8 @@ import { create } from 'zustand';
 import userService, { SignInReq } from '@/web/api/services/userService';
 import { getItem, removeItem, setItem } from '@/web/utils/storage';
 
-import { UserInfo, UserToken } from '@/entity';
-import { StorageEnum } from '@/enum';
+import { UserInfo, UserToken } from '@/types/entity';
+import { StorageEnum } from '@/types/enum';
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 

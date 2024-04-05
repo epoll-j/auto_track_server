@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { pagesSelect } from '@/web/router/hooks/use-permission-routes';
 import { useUserPermission } from '@/web/store/userStore';
 
-import { Permission } from '@/entity';
-import { BasicStatus, PermissionType } from '@/enum';
+import { Permission } from '@/types/entity';
+import { BasicStatus, PermissionType } from '@/types/enum';
 
 export type PermissionModalProps = {
   formValue: Permission;

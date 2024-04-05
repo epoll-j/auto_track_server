@@ -4,7 +4,7 @@ import { SvgIcon } from '@/web/components/icon';
 import useLocale from '@/web/locales/useLocale';
 import { useThemeToken } from '@/web/theme/hooks';
 
-import { LocalEnum } from '@/enum';
+import { LocalEnum } from '@/types/enum';
 
 export default function MultiLanguagePage() {
   const {

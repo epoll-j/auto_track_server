@@ -10,8 +10,8 @@ import ProTag from '@/web/theme/antd/components/tag';
 
 import PermissionModal, { type PermissionModalProps } from './permission-modal';
 
-import { Permission } from '@/entity';
-import { BasicStatus, PermissionType } from '@/enum';
+import { Permission } from '@/types/entity';
+import { BasicStatus, PermissionType } from '@/types/enum';
 
 const defaultPermissionValue: Permission = {
   id: '',

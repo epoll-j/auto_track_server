@@ -7,7 +7,7 @@ import { useMatches, Link } from 'react-router-dom';
 import { useFlattenedRoutes, usePermissionRoutes } from '@/web/router/hooks';
 import { menuFilter } from '@/web/router/utils';
 
-import { AppRouteObject } from '@/router';
+import { AppRouteObject } from '@/types/router';
 
 /**
  * 动态面包屑解决方案：https://github.com/MinjieChang/myblog/issues/29

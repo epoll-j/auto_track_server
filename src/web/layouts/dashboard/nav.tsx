@@ -14,7 +14,7 @@ import { useThemeToken } from '@/web/theme/hooks';
 
 import { NAV_COLLAPSED_WIDTH, NAV_WIDTH } from './config';
 
-import { ThemeLayout } from '@/enum';
+import { ThemeLayout } from '@/types/enum';
 
 type Props = {
   closeSideBarDrawer?: () => void;

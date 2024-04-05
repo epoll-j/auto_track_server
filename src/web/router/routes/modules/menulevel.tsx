@@ -5,7 +5,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { SvgIcon } from '@/web/components/icon';
 import { CircleLoading } from '@/web/components/loading';
 
-import { AppRouteObject } from '@/router';
+import { AppRouteObject } from '@/types/router';
 
 function MenuLevel({ title }: { title: string }) {
   return <Typography.Title>Menu Level: {title}</Typography.Title>;

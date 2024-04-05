@@ -19,7 +19,7 @@ import { useSettingActions, useSettings } from '@/web/store/settingStore';
 import { colorPrimarys } from '@/web/theme/antd/theme';
 import { useThemeToken } from '@/web/theme/hooks';
 
-import { ThemeColorPresets, ThemeLayout, ThemeMode } from '@/enum';
+import { ThemeColorPresets, ThemeLayout, ThemeMode } from '@/types/enum';
 
 /**
  * App Setting

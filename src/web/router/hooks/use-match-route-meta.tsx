@@ -4,7 +4,7 @@ import { Params, useMatches, useOutlet } from 'react-router-dom';
 import { useFlattenedRoutes } from './use-flattened-routes';
 import { useRouter } from './use-router';
 
-import { RouteMeta } from '@/router';
+import { RouteMeta } from '@/types/router';
 
 /**
  * 返回当前路由Meta信息

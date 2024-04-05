@@ -8,7 +8,7 @@ import { useResponsive } from '@/web/theme/hooks';
 import { NAV_WIDTH, NAV_COLLAPSED_WIDTH, HEADER_HEIGHT, MULTI_TABS_HEIGHT } from './config';
 import MultiTabs from './multi-tabs';
 
-import { ThemeLayout } from '@/enum';
+import { ThemeLayout } from '@/types/enum';
 
 type Props = {
   offsetTop?: boolean;

@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Iconify, SvgIcon } from '@/web/components/icon';
 import { useSettings } from '@/web/store/settingStore';
 
-import { ThemeLayout } from '@/enum';
-import { AppRouteObject } from '@/router';
+import { ThemeLayout } from '@/types/enum';
+import { AppRouteObject } from '@/types/router';
 
 /**
  *   routes -> menus
