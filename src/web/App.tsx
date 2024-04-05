@@ -1,13 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import Login from './pages/Login';
+import { App as AntdApp } from 'antd';
 
-export default () => {
-  return (<Router>
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/*" element={<Layout />} /> {/* 使用 "/*" 来匹配 ProLayout 中的所有子路由 */}
-    </Routes>
-  </Router>)
-};
+import Router from '@/web/router/index';
+import AntdConfig from '@/web/theme/antd';
+
+import { MotionLazy } from './components/animate/motion-lazy';
+
+function App() {
+  return (
+    <AntdConfig>
+      <AntdApp>
+        <MotionLazy>
+          <Router />
+        </MotionLazy>
+      </AntdApp>
+    </AntdConfig>
+  );
+}
+
+export default App;
