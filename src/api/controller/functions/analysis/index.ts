@@ -30,3 +30,14 @@ export const getUserAppVersionOverview = Api(
         return await service.getUserAppVersionOverview(appKey as string);
     }
 )
+
+export const getUserRegionOverview = Api(
+    Get(),
+    Query<{ appKey: string }>(),
+    async () => {
+        const ctx = useContext<Context>();
+        const { appKey } = ctx.query;
+        const service = await useInject(DataAnalysisService)
+        return await service.getUserRegionOverview(appKey as string);
+    }
+)

@@ -8,6 +8,10 @@ import { CacheService } from './cache.service';
 import { Context } from '@midwayjs/koa';
 import { RedisService } from '@midwayjs/redis';
 
+const Searcher = require('../ip2region')
+const buffer = Searcher.loadContentFromFile('src/api/ip2region/data.xdb')
+const searcher = Searcher.newWithBuffer(buffer)
+
 @Provide()
 export class TrackService {
     @Inject()
@@ -25,6 +29,12 @@ export class TrackService {
         const { app_key, user_id, track_id, data_list, device_info, app_version } = track;
         const { ip } = this.ctx;
         const rows: UserTrack[] = [];
+        let region = 'unknown'
+        try {
+            const result = await searcher.search(ip);
+            region = result.region
+        } catch (error) {
+        }
         for (const data of data_list) {
             const userTrack = new UserTrack();
             userTrack.appKey = app_key;
@@ -54,6 +64,7 @@ export class TrackService {
                     dbUSer.appVersion = app_version
                     dbUSer.deviceInfo = JSON.stringify(device_info)
                     dbUSer.loginIp = ip
+                    dbUSer.ipRegion = region
                     return await this.appUserModel.save(dbUSer)
                 }
 
@@ -67,6 +78,7 @@ export class TrackService {
                 newUser.loginIp = ip
                 newUser.appVersion = app_version
                 newUser.deviceInfo = JSON.stringify(device_info)
+                newUser.ipRegion = region
                 user = await this.appUserModel.save(newUser)
                 const nuKey = `${app_key}:nu`;
                 await this.redis.incr(nuKey);

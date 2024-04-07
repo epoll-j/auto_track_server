@@ -14,6 +14,9 @@ export class AppUser {
   @Column("varchar", { name: "login_ip", length: 50 })
   loginIp: string;
 
+  @Column("varchar", { name: "ip_region", length: 200 })
+  ipRegion: string;
+
   @Column("varchar", { name: "app_version", length: 50 })
   appVersion: string;
 

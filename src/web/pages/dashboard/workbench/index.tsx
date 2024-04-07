@@ -1,15 +1,10 @@
-import { Col, Row, Space } from 'antd';
+import { Col, Row } from 'antd';
 
-import AreaDownload from './area-download';
-import BannerCard from './banner-card';
-import { Applications, Conversion } from './conversion_applications';
 import AppVersion from './app-version';
-import NewInvoice from './new-invoice';
-import TopAuthor from './top-authors';
-import TopInstalled from './top-installed';
-import TopRelated from './top-related';
+import TrackList from './track-list';
 import TotalCard from './total-card';
-import { getUserOverview, getUserAppVersionOverview } from '@/api/controller/functions/analysis';
+import UserRegion from './user-region';
+import { getUserOverview, getUserAppVersionOverview, getUserRegionOverview } from '@/api/controller/functions/analysis';
 import { useRequest } from 'ahooks';
 import { Skeleton } from 'antd';
 
@@ -17,21 +12,10 @@ function Workbench() {
 
   const { data: userOverviewData, loading: userOverviewLoading } = useRequest(() => getUserOverview({ query: { appKey: 'b922ceea' } }))
   const { data: versionOverviewData, loading: versionOverviewLoading } = useRequest(() => getUserAppVersionOverview({ query: { appKey: 'b922ceea' } }))
+  const { data: regionOverviewData, loading: regionOverviewLoading } = useRequest(() => getUserRegionOverview({ query: { appKey: 'b922ceea' } }))
 
   return (
     <>
-      {/* <Row gutter={[16, 16]} justify="center">
-        <Col span={24} md={16}>
-          <BannerCard />
-        </Col>
-        <Col span={24} md={8}>
-          <Space direction="vertical" size="middle" className="h-full w-full">
-            <Conversion />
-            <Applications />
-          </Space>
-        </Col>
-      </Row> */}
-
       <Row gutter={[16, 16]} className="mt-4" justify="center">
         <Col span={24} md={8}>
           {userOverviewLoading ? <Skeleton /> : <TotalCard
@@ -69,26 +53,13 @@ function Workbench() {
           { versionOverviewLoading ? <Skeleton /> : <AppVersion charData={versionOverviewData} /> }
         </Col>
         <Col span={24} md={12} lg={16}>
-          <AreaDownload />
+        { regionOverviewLoading ? <Skeleton /> : <UserRegion categories={regionOverviewData.map((item) => item.ipRegion)} series={regionOverviewData.map((item) => Number(item.count))} /> }
         </Col>
       </Row>
 
       <Row gutter={[16, 16]} className="mt-4" justify="center">
-        <Col span={23} md={12} lg={16}>
-          <NewInvoice />
-        </Col>
-        <Col span={23} md={12} lg={8}>
-          <TopRelated />
-        </Col>
-      </Row>
-
-      <Row gutter={[16, 16]} className="mt-4" justify="center">
-        <Col span={24} md={12}>
-          <TopInstalled />
-        </Col>
-
-        <Col span={24} md={12}>
-          <TopAuthor />
+        <Col span={24} md={24} lg={24}>
+          { userOverviewLoading ? <Skeleton /> : <TrackList tableData={userOverviewData.statistics} /> }
         </Col>
       </Row>
     </>

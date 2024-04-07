@@ -25,7 +25,7 @@ export class DataAnalysisService {
             order: {
                 dataTime: 'DESC'
             },
-            select: ['dataTime', 'appTu', 'appNu', 'appDau']
+            select: ['dataTime', 'appTu', 'appNu', 'appDau', 'otherParams']
         })
         const dauKey = `${appKey}:dau`;
         const nuKey = `${appKey}:nu`;
@@ -33,6 +33,9 @@ export class DataAnalysisService {
         const dau = await this.redis.bitcount(dauKey) || 0;
         const tu = await this.appUserRepo.countBy({
             appKey
+        })
+        statistics.map(item => {
+            item.dataTime = moment(item.dataTime).format('YYYY-MM-DD') as any
         })
         return {
             nu,
@@ -52,5 +55,17 @@ export class DataAnalysisService {
             .getRawMany()
 
         return versionData
+    }
+
+    async getUserRegionOverview(appKey: string) {
+        const regionData = await this.appUserRepo.createQueryBuilder('appUser')
+            .select('appUser.ipRegion', 'ipRegion')
+            .addSelect('COUNT(appUser.id)', 'count')
+            .where('appUser.appKey = :appKey', { appKey })
+            .groupBy('appUser.ipRegion')
+            .orderBy('count', 'DESC')
+            .getRawMany()
+
+        return regionData
     }
 }
