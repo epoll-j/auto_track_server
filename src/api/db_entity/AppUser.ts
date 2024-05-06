@@ -5,6 +5,9 @@ export class AppUser {
   @PrimaryGeneratedColumn({ type: "int", name: "id", unsigned: true })
   id: number;
 
+  @Column("varchar", { name: "device_id", length: 255 })
+  deviceId: string;
+
   @Column("varchar", { name: "user_id", length: 255 })
   userId: string;
 
