@@ -39,7 +39,7 @@ export class TrackController {
         return { success: false }
     }
     const tKey = `track:${track.app_key}:${track.t}`
-    if (await this.redis.get(tKey) || new Date().getTime() - Number(track.t) > 1000 * 60) {
+    if (await this.redis.get(tKey) || (Number(track.t) > 1000000000000 && new Date().getTime() - Number(track.t) > 1000 * 60)) {
         return { success: false }    
     }
     const sign = crypto.createHash('sha256').update(`${track.app_key}${track.t}${app.appSecret}`).digest('hex')
