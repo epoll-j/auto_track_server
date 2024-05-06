@@ -38,7 +38,7 @@ export class TrackController {
     if (!app) {
         return { success: false }
     }
-    const tKey = `track:${track.app_key}:${track.t}`
+    const tKey = `track:${track.app_key}:${track.user_id || (`uid${track.unique_id}`)}:${track.t}`
     if (await this.redis.get(tKey) || (Number(track.t) > 1000000000000 && new Date().getTime() - Number(track.t) > 1000 * 60)) {
         return { success: false }    
     }
@@ -46,7 +46,7 @@ export class TrackController {
     if (track.signature !== sign) {
         return { success: false }
     }
-    this.redis.setex(tKey, 60 * 60 * 10, 1)
+    this.redis.setex(tKey, 60 * 5, 1)
     await this.trackService.add(track);
     return { success: true }
   }
