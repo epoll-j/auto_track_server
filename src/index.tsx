@@ -11,8 +11,6 @@ import 'virtual:svg-icons-register';
 import { Analytics } from '@vercel/analytics/react';
 
 import App from '@/web/App';
-
-import { worker } from '@/web/_mock';
 // i18n
 import '@/web/locales/i18n';
 // tailwind css
@@ -55,6 +53,3 @@ root.render(
     </QueryClientProvider>
   </HelmetProvider>,
 );
-
-// 🥵 start service worker mock in development mode
-worker.start({ onUnhandledRequest: 'bypass' });
