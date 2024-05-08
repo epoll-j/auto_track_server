@@ -32,7 +32,10 @@ export class TrackService {
         let region = 'unknown'
         try {
             const result = await searcher.search(ip);
-            region = result.region
+            if (result.region) {
+                const region_list = result.region.split('|')
+                region = `${region_list[0]}|${region_list[2] || 'unknown'}`
+            }
         } catch (error) {
         }
         for (const data of data_list) {

@@ -59,7 +59,7 @@ export const useSignIn = () => {
 
   const signIn = async (data: SignInReq) => {
     try {
-      const res = await signInMutation.mutateAsync(data);
+      // const res = await signInMutation.mutateAsync(data);
       const { user, accessToken, refreshToken } = {
         "user": DEFAULT_USER,
         "accessToken": "2f223353-d541-41ea-9ec0-fb333db45f15",
