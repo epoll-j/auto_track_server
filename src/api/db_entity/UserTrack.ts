@@ -11,6 +11,9 @@ export class UserTrack {
   @Column("varchar", { name: "app_key", length: 200 })
   appKey: string;
 
+  @Column("varchar", { name: "unique_id", length: 255 })
+  uniqueId: string;
+
   @Column("varchar", { name: "device_id", length: 255 })
   deviceId: string;
 

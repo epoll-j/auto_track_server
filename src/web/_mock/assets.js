@@ -67,13 +67,13 @@ const DASHBOARD_PERMISSION = {
       component: '/dashboard/workbench/index.tsx',
     },
     {
-      id: '9710971640510357',
+      id: '97109716405103527',
       parentId: '9100714781927703',
       label: 'sys.menu.analysis',
-      name: 'Analysis',
+      name: 'TrackAnalysis',
       type: PermissionType.MENU,
-      route: 'analysis',
-      component: '/dashboard/analysis/index.tsx',
+      route: 'track-analysis',
+      component: '/dashboard/track-analysis/index.tsx',
     },
   ],
 };

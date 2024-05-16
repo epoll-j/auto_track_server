@@ -8,6 +8,9 @@ export class AppUser {
   @Column("varchar", { name: "device_id", length: 255 })
   deviceId: string;
 
+  @Column("varchar", { name: "unique_id", length: 255 })
+  uniqueId: string;
+
   @Column("varchar", { name: "user_id", length: 255 })
   userId: string;
 

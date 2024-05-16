@@ -1,10 +1,11 @@
 import { Provide, Inject } from '@midwayjs/core';
 import { InjectEntityModel } from '@midwayjs/typeorm';
-import { MoreThanOrEqual, Repository } from 'typeorm';
+import { Between, MoreThanOrEqual, Repository } from 'typeorm';
 import { TrackStatistics } from '../db_entity/TrackStatistics';
 import moment from 'moment';
 import { RedisService } from '@midwayjs/redis';
 import { AppUser } from '../db_entity/AppUser';
+import { UserTrack } from '../db_entity/UserTrack';
 
 @Provide()
 export class DataAnalysisService {
@@ -13,6 +14,8 @@ export class DataAnalysisService {
     statisticsRepo: Repository<TrackStatistics>;
     @InjectEntityModel(AppUser)
     appUserRepo: Repository<AppUser>;
+    @InjectEntityModel(UserTrack)
+    userTrackRepo: Repository<UserTrack>;
     @Inject()
     redis: RedisService
 
@@ -67,5 +70,44 @@ export class DataAnalysisService {
             .getRawMany()
 
         return regionData
+    }
+
+    async getTrackList(appKey: string, time?: string, userId?: string, uniqueId?: string, deviceId?: string, page: number = 1, size: number = 10) {
+        const [trackList, total] = await this.userTrackRepo.findAndCount(
+            {
+                where: {
+                    appKey,
+                    ...(userId && { userId: userId }),
+                    ...(uniqueId && { uniqueId: uniqueId }),
+                    ...(deviceId && { deviceId: deviceId }),
+                    ...(time && {
+                        trackTime: Between(new Date(time.split(',')[0]), new Date(time.split(',')[1])),
+                    })
+                },
+                select: ['id', 'trackId', 'appVersion', 'userId', 'deviceId', 'trackTime', 'trackIp', 'uniqueId' ,'trackType', 'trackKey', 'trackParams'],
+                order: {
+                    trackTime: 'DESC'
+                },
+                skip: (page - 1) * size,
+                take: size
+            }
+        )
+        return {
+            total,
+            page,
+            size,
+            list: trackList
+        }
+    }
+
+    async getTrackInfo(appKey: string, trackId: string) {
+        const trackInfo = await this.userTrackRepo.find({
+            where: {
+                appKey,
+                trackId
+            },
+            select: ['id', 'trackId', 'appVersion', 'userId', 'deviceId', 'trackTime', 'trackIp', 'uniqueId' ,'trackType', 'trackKey', 'trackParams']
+        })
+        return trackInfo
     }
 }

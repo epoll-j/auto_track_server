@@ -26,7 +26,7 @@ export class TrackService {
     appUserModel: Repository<AppUser>;
 
     async add(track: TrackBody) {
-        const { app_key, user_id, track_id, data_list, device_info, app_version, unique_id } = track;
+        const { app_key, user_id, track_id, data_list, device_info, app_version, unique_id, device_id } = track;
         const { ip } = this.ctx;
         const rows: UserTrack[] = [];
         let region = 'unknown'
@@ -49,7 +49,8 @@ export class TrackService {
             userTrack.trackParams = JSON.stringify(data.params)
             userTrack.trackIp = ip;
             userTrack.appVersion = app_version;
-            userTrack.deviceId = unique_id
+            userTrack.deviceId = device_id
+            userTrack.uniqueId = unique_id
             rows.push(userTrack);
         }
 
@@ -83,7 +84,8 @@ export class TrackService {
                 newUser.appVersion = app_version
                 newUser.deviceInfo = JSON.stringify(device_info)
                 newUser.ipRegion = region
-                newUser.deviceId = unique_id
+                newUser.deviceId = device_id
+                newUser.uniqueId = unique_id
                 user = await this.appUserModel.save(newUser)
                 const nuKey = `${app_key}:nu`;
                 await this.redis.incr(nuKey);

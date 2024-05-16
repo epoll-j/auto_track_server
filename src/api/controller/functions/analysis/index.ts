@@ -41,3 +41,33 @@ export const getUserRegionOverview = Api(
         return await service.getUserRegionOverview(appKey as string);
     }
 )
+
+export const getTrackList = Api(
+    Get(),
+    Query<{
+        appKey: string,
+        time?: string,
+        userId?: string,
+        uniqueId?: string,
+        deviceId?: string,
+        page: string,
+        size: string
+    }>(),
+    async () => {
+        const ctx = useContext<Context>();
+        const { appKey, time, userId, uniqueId, deviceId, page, size } = ctx.query;
+        const service = await useInject(DataAnalysisService)
+        return await service.getTrackList(appKey as string, time as string, userId as string, uniqueId as string, deviceId as string, Number(page), Number(size));
+    }
+)
+
+export const getTrackInfo = Api(
+    Get(),
+    Query<{ appKey: string, trackId: string }>(),
+    async () => {
+        const ctx = useContext<Context>();
+        const { appKey, trackId } = ctx.query;
+        const service = await useInject(DataAnalysisService)
+        return await service.getTrackInfo(appKey as string, trackId as string);
+    }
+)
