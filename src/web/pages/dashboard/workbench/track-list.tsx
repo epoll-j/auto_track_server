@@ -48,7 +48,7 @@ export default function TrackList({ tableData }: Props) {
       </header>
       <main className="w-full">
         <Scrollbar>
-          <Table columns={columns} dataSource={data} />
+          <Table columns={columns} dataSource={data.sort((a, b) => b.num - a.num)} />
         </Scrollbar>
       </main>
     </Card>

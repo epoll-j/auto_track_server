@@ -71,3 +71,14 @@ export const getTrackInfo = Api(
         return await service.getTrackInfo(appKey as string, trackId as string);
     }
 )
+
+export const getFunnelData = Api(
+    Get(),
+    Query<{ appKey: string, events: string, time: string }>(),
+    async () => {
+        const ctx = useContext<Context>();
+        const { appKey, events, time } = ctx.query;
+        const service = await useInject(DataAnalysisService)
+        return await service.getFunnelData(appKey as string, (events as string).split(','), time as string);
+    }
+)

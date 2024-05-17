@@ -69,11 +69,20 @@ const DASHBOARD_PERMISSION = {
     {
       id: '97109716405103527',
       parentId: '9100714781927703',
-      label: 'sys.menu.analysis',
+      label: '操作轨迹',
       name: 'TrackAnalysis',
       type: PermissionType.MENU,
       route: 'track-analysis',
       component: '/dashboard/track-analysis/index.tsx',
+    },
+    {
+      id: '94109716405103527',
+      parentId: '9100714781927703',
+      label: '事件漏斗',
+      name: 'EventFunnel',
+      type: PermissionType.MENU,
+      route: 'event-funnel',
+      component: '/dashboard/event-funnel/index.tsx',
     },
   ],
 };

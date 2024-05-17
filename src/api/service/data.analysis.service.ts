@@ -84,7 +84,7 @@ export class DataAnalysisService {
                         trackTime: Between(new Date(time.split(',')[0]), new Date(time.split(',')[1])),
                     })
                 },
-                select: ['id', 'trackId', 'appVersion', 'userId', 'deviceId', 'trackTime', 'trackIp', 'uniqueId' ,'trackType', 'trackKey', 'trackParams'],
+                select: ['id', 'trackId', 'appVersion', 'userId', 'deviceId', 'trackTime', 'trackIp', 'uniqueId', 'trackType', 'trackKey', 'trackParams'],
                 order: {
                     trackTime: 'DESC'
                 },
@@ -106,8 +106,90 @@ export class DataAnalysisService {
                 appKey,
                 trackId
             },
-            select: ['id', 'trackId', 'appVersion', 'userId', 'deviceId', 'trackTime', 'trackIp', 'uniqueId' ,'trackType', 'trackKey', 'trackParams']
+            select: ['id', 'trackId', 'appVersion', 'userId', 'deviceId', 'trackTime', 'trackIp', 'uniqueId', 'trackType', 'trackKey', 'trackParams']
         })
         return trackInfo
+    }
+
+    async getFunnelData(appKey: string, events: string[], time: string) {
+        const trackList = await this.userTrackRepo.find({
+            select: ['userId', 'trackId', 'trackKey', 'trackTime'],
+            where: {
+                appKey,
+                trackTime: Between(new Date(time.split(',')[0]), new Date(time.split(',')[1]))
+            },
+            order: {
+                trackTime: 'ASC'
+            },
+        })
+
+        return await this.calculateFunnelConversion(trackList, events);
+    }
+
+    async calculateFunnelConversion(eventsData, events) {
+        // 使用一个Map对象来为每个会话track_id独立跟踪事件路径
+        let trackIdFunnelPaths = new Map();
+
+        // 初始化Map中每个track_id的事件集合
+        eventsData.forEach(data => {
+            const { trackId } = data;
+            if (!trackIdFunnelPaths.has(trackId)) {
+                let trackIdEvents = events.reduce((acc, event) => {
+                    acc[event] = false; // 初始时，没有事件发生
+                    return acc;
+                }, {});
+                trackIdFunnelPaths.set(trackId, trackIdEvents);
+            }
+        });
+
+        // 处理每个会话的事件数据，确保事件的顺序是在之前事件发生之后
+        eventsData.forEach(data => {
+            const { trackId, trackKey } = data;
+            let trackIdEvents = trackIdFunnelPaths.get(trackId);
+            if (events.indexOf(trackKey) !== -1) {
+                // 如果是序列中的第一个事件，无条件标记为发生
+                if (events.indexOf(trackKey) === 0) {
+                    trackIdEvents[trackKey] = true;
+                } else {
+                    // 如果当前事件发生在之前所有事件之后，标记为发生
+                    let previousEventKey = events[events.indexOf(trackKey) - 1];
+                    if (trackIdEvents[previousEventKey]) {
+                        trackIdEvents[trackKey] = true;
+                    }
+                }
+            }
+            trackIdFunnelPaths.set(trackId, trackIdEvents);
+        });
+
+        // 计算总的事件发生次数和转换率
+        let funnelTotals = events.reduce((acc, event) => {
+            acc[event] = 0;
+            return acc;
+        }, {});
+
+        trackIdFunnelPaths.forEach(trackIdEvents => {
+            let hasPassedPreviousEvent = true;
+
+            events.forEach((event, index) => {
+                // 如果此前的事件都通过了，则累加此事件的发生次数
+                if (hasPassedPreviousEvent) {
+                    if (trackIdEvents[event]) {
+                        funnelTotals[event] += 1;
+                    } else {
+                        hasPassedPreviousEvent = false; // 事件未发生，后面的事件不再记录
+                    }
+                }
+            });
+        });
+
+        // 计算转换率
+        let conversionRates = events.map((event, index) => {
+            if (index === 0) return '100%'; // 第一个事件没有转化率
+            let previousEventCount = index > 0 ? funnelTotals[events[index - 1]] : 0;
+            let eventCount = funnelTotals[event];
+            return previousEventCount > 0 ? ((eventCount / previousEventCount) * 100).toFixed(2) + '%' : '0%';
+        });
+
+        return { funnelTotals, conversionRates };
     }
 }
