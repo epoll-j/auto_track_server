@@ -1,9 +1,15 @@
 import { StorageEnum } from '@/types/enum';
 
-export const getItem = <T>(key: StorageEnum): T | null => {
+export const getItem = <T>(key: StorageEnum, session = false): T | null => {
   let value = null;
   try {
-    const result = window.localStorage.getItem(key);
+    let result: string
+    if (session) {
+      result = window.sessionStorage.getItem(key);
+    } else {
+      result = window.localStorage.getItem(key);
+    }
+    
     if (result) {
       value = JSON.parse(result);
     }
@@ -13,16 +19,30 @@ export const getItem = <T>(key: StorageEnum): T | null => {
   return value;
 };
 
-export const getStringItem = (key: StorageEnum): string | null => {
+export const getStringItem = (key: StorageEnum, session = false): string | null => {
+  if (session) {
+    return sessionStorage.getItem(key);
+  }
   return localStorage.getItem(key);
 };
-
-export const setItem = <T>(key: StorageEnum, value: T): void => {
-  localStorage.setItem(key, JSON.stringify(value));
+export const setItem = <T>(key: StorageEnum, value: T, session = false): void => {
+  if (session) {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  } else {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
 };
-export const removeItem = (key: StorageEnum): void => {
-  localStorage.removeItem(key);
+export const removeItem = (key: StorageEnum, session = false): void => {
+  if (session) {
+    sessionStorage.removeItem(key);
+  } else {
+    localStorage.removeItem(key);
+  }
 };
-export const clearItems = () => {
-  localStorage.clear();
+export const clearItems = (session = false) => {
+  if (session) {
+    sessionStorage.clear();
+  } else {
+    localStorage.clear();
+  }
 };
