@@ -55,6 +55,7 @@ export class TrackService {
         }
 
         await this.userTrackModel.insert(rows);
+        let userId = null
         if (user_id && user_id !== '') {
             const userKey = `${app_key}:user:${user_id}`;
             let user = await this.cacheService.get<AppUser>(userKey, async () => {
@@ -90,12 +91,13 @@ export class TrackService {
                 const nuKey = `${app_key}:nu`;
                 await this.redis.incr(nuKey);
             }
+            userId = user.id
         }
         const dauKey = `${app_key}:dau`;
-        if ((unique_id && unique_id !== '') || (user_id && user_id !== '')) {
-            let dauId = unique_id
+        if ((device_id && device_id !== '') || (userId)) {
+            let dauId = userId
             if (!dauId || dauId === '') {
-                dauId = user_id
+                dauId = Number((BigInt(`0x${device_id.replace(/-/g, '')}`) % BigInt(1000000000)))
             }
             await this.redis.setbit(dauKey, dauId, 1);
         }
